@@ -185,7 +185,7 @@ class Diff::LCS::Hunk
       block.remove.each do |item|
         op     = item.action.to_s # -
         offset = item.position - lo + num_added
-        outlist[offset][0, 1] = encode(op)
+        outlist[offset][0, 1] = '<span class="line delete">' + encode(op)
         num_removed += 1
       end
 
@@ -197,14 +197,14 @@ class Diff::LCS::Hunk
       block.insert.each do |item|
         op     = item.action.to_s # +
         offset = item.position - @start_new + num_removed
-        outlist[offset, 0] = encode(op) + @data_new[item.position].chomp
+        outlist[offset, 0] = '<span class="line insert">' + encode(op) + @data_new[item.position].chomp
         num_added += 1
       end
     end
 
     outlist << encode('\\ No newline at end of file') if last && new_missing_newline
 
-    s << outlist.join(encode("\n"))
+    s << outlist.join(encode("</span>"+"\n"))
 
     s
   end
