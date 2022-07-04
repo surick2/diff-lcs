@@ -185,7 +185,7 @@ class Diff::LCS::Hunk
       block.remove.each do |item|
         op     = item.action.to_s # -
         offset = item.position - lo + num_added
-        outlist[offset][0, 1] = '<span class="line delete">' + encode(op)
+        outlist[offset][0, 1] = '<span class="line delete gd">' + encode(op)
         num_removed += 1
       end
 
@@ -197,7 +197,7 @@ class Diff::LCS::Hunk
       block.insert.each do |item|
         op     = item.action.to_s # +
         offset = item.position - @start_new + num_removed
-        outlist[offset, 0] = '<span class="line insert">' + encode(op) + @data_new[item.position].chomp
+        outlist[offset, 0] = '<span class="line insert gi">' + encode(op) + @data_new[item.position].chomp
         num_added += 1
       end
     end
